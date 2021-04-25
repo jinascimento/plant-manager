@@ -8,12 +8,14 @@ import {
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-interface ButtonProps extends TouchableOpacityProps {}
+interface ButtonProps extends TouchableOpacityProps {
+  title: string,
+}
 
-export function Button({ ...rest }: ButtonProps) {
+export function Button({ title, ...rest }: ButtonProps) {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.7} {...rest}>
-      <Text style={styles.text}>Confirmar</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 }
