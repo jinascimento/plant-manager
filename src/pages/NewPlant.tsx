@@ -33,7 +33,6 @@ export function NewPlant() {
   const navigation = useNavigation();
 
   async function handleSave() {
-
     try {
       await savePlant({
         ...plant,
@@ -41,10 +40,11 @@ export function NewPlant() {
       });
 
       navigation.navigate("Confirmation", {
-        title: 'Tudo certo',
-        subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado.',
-        buttonTitle: 'Muito Obrihado :D',
-        nextScreen: 'MyPlants',
+        title: "Tudo certo",
+        subtitle:
+          "Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com muito cuidado.",
+        buttonTitle: "Muito Obrihado :D",
+        nextScreen: "MyPlants",
       });
     } catch {
       Alert.alert("Não foi possível salvar. 🥲");
@@ -71,47 +71,52 @@ export function NewPlant() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.plantInfo}>
-        <SvgFromUri uri={plant.photo} height={150} width={150} />
-        <Text style={styles.plantName}>{plant.name}</Text>
-        <Text style={styles.plantAbout}>{plant.about}</Text>
-      </View>
-
-      <View style={styles.controllers}>
-        <View style={styles.tipContainer}>
-          <Image source={waterdrop} style={styles.tipImage} />
-          <Text style={styles.tipText}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit
-          </Text>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
+      <View style={styles.container}>
+        <View style={styles.plantInfo}>
+          <SvgFromUri uri={plant.photo} height={150} width={150} />
+          <Text style={styles.plantName}>{plant.name}</Text>
+          <Text style={styles.plantAbout}>{plant.about}</Text>
         </View>
 
-        <Text style={styles.alertLabel}>
-          Ecolha o melhor horário para ser lembrado:
-        </Text>
-        {showDatePicker && (
-          <DateTimePicker
-            value={selectedDateTime}
-            mode="time"
-            display="spinner"
-            onChange={handleChangeTime}
-          />
-        )}
+        <View style={styles.controllers}>
+          <View style={styles.tipContainer}>
+            <Image source={waterdrop} style={styles.tipImage} />
+            <Text style={styles.tipText}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit
+            </Text>
+          </View>
 
-        {Platform.OS === "android" && (
-          <TouchableOpacity
-            onPress={handleOpenDateTimePickerForAndroid}
-            style={styles.dateTimePickerButton}
-          >
-            <Text style={styles.dateTimePickerText}>{`Mudar ${format(
-              selectedDateTime,
-              "HH:mm"
-            )}`}</Text>
-          </TouchableOpacity>
-        )}
-        <Button title="Cadastrar planta" onPress={handleSave} />
+          <Text style={styles.alertLabel}>
+            Ecolha o melhor horário para ser lembrado:
+          </Text>
+          {showDatePicker && (
+            <DateTimePicker
+              value={selectedDateTime}
+              mode="time"
+              display="spinner"
+              onChange={handleChangeTime}
+            />
+          )}
+
+          {Platform.OS === "android" && (
+            <TouchableOpacity
+              onPress={handleOpenDateTimePickerForAndroid}
+              style={styles.dateTimePickerButton}
+            >
+              <Text style={styles.dateTimePickerText}>{`Mudar ${format(
+                selectedDateTime,
+                "HH:mm"
+              )}`}</Text>
+            </TouchableOpacity>
+          )}
+          <Button title="Cadastrar planta" onPress={handleSave} />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -120,6 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-around",
     backgroundColor: colors.shape,
+    paddingTop: 30,
   },
   plantInfo: {
     flex: 1,
